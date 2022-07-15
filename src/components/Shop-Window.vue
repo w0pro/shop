@@ -21,11 +21,13 @@ export default {
 </script>
 
 <style scoped lang="sass">
+.shop-table
+  margin: 0 32px
 
 h1
   padding: 32px 0 16px
+  font-size: 28px
+  font-weight: 600
 
-.shop-table
-  margin: 0 32px
 
 </style>
