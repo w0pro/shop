@@ -11,12 +11,18 @@
               <div v-if="item.iconLabel" class="icon-label">
               </div>
             </div>
-            <input class="input" :type="item.type" :id="item.id"
+            <input v-if="!item.textarea" class="input" :type="item.type" :id="item.id"
                                 v-model.trim="formFields[item.id]"
                                :style="{width:item.width, height:item.height,
                                marginBottom:item.marginB}"
                                :placeholder="item.placeholder"
                                :class="{error: item.error}">
+            <textarea v-else class="input" :type="item.type" :id="item.id"
+                      v-model.trim="formFields[item.id]"
+                      :style="{width:item.width, height:item.height,
+                               marginBottom:item.marginB}"
+                      :placeholder="item.placeholder"
+                      :class="{error: item.error}"></textarea>
           </label>
         </li>
         <button
@@ -59,6 +65,7 @@ export default {
           iconLabel: false,
           error: false,
           type: 'text',
+          textarea: true
         },
         {
           label: 'Ссылка на изображение товара',
@@ -163,6 +170,9 @@ h1
   padding: 10px 16px
   border: none
   outline: none
+
+textarea
+  resize: none
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button
