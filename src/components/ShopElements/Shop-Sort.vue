@@ -90,6 +90,9 @@ export default {
   border-radius: 4px
 
 .select
+  font-size: 12px
+  font-weight: 400
+  color: #B4B4B4
   width: auto
   outline: none
   border: none

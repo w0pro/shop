@@ -16,7 +16,7 @@
                 <span>{{card.info}}</span>
               </div>
             </div>
-            <div>
+            <div class="item__cost">
               <span>{{new Intl.NumberFormat('ru-RU').format(card.cost)}} руб.</span>
             </div>
           </div>
@@ -86,7 +86,15 @@ li
   justify-content: space-between
   padding: 16px 16px 24px 16px
 
+.item__name h2
+  font-size: 20px
+  font-weight: 600
+  line-height: 25px
+
 .item__info
+  font-size: 16px
+  font-weight: 400
+  line-height: 20px
   margin: 16px 0 32px
   height: 89px
   overflow: scroll
@@ -98,6 +106,11 @@ li
   height: 100%
   object-fit: cover
   border-radius: 4px 4px 0 0
+
+.item__cost
+  font-size: 24px
+  font-weight: 600
+  line-height: 30px
 
 .svg
   position: absolute
