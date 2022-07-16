@@ -1,33 +1,48 @@
 <template>
   <div class="shop-table">
-    <h1>Добавление товара</h1>
-    <div>
-      <shop-form />
-
-    </div>
+      <shop-form v-on:transferCard="transferCard($event)"/>
+      <shop-sort :cards="cards"/>
   </div>
 
 </template>
 
 <script>
-
+/* eslint-disable */
 import ShopForm from '@/components/ShopElements/Shop-Form.vue';
+import ShopSort from '@/components/ShopElements/Shop-Sort.vue';
+import {updateLocal} from "@/components/mixins/updateLocal";
 
 export default {
   name: 'ShopWindow',
-  /* eslint-disable */
-  components: {ShopForm},
-};
+  components: {ShopSort, ShopForm},
+  mixins: [updateLocal],
+  mounted() {
+    if (localStorage.getItem('cards') !== null) {
+      this.cards = JSON.parse(localStorage.getItem('cards'))
+    }
+  },
+  data() {
+    return {
+      cards: [],
+    }
+  },
+  methods: {
+    transferCard(event) {
+      this.cards.push(event)
+      this.cards = this.cards.sort((prev, next) => {
+        if (prev.name < next.name) return -1;
+        if (prev.name > next.name) return 1;
+      });
+      this.updateLocal(this.cards)
+    },
+  },
+}
 </script>
 
 <style scoped lang="sass">
 .shop-table
-  margin: 0 32px
-
-h1
-  padding: 32px 0 16px
-  font-size: 28px
-  font-weight: 600
-
+  display: flex
+  column-gap: 16px
+  margin: 32px 32px 0
 
 </style>
