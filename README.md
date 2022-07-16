@@ -1,6 +1,8 @@
 
 # shop
 
+link Netlify https://kaleidoscopic-toffee-a21e21.netlify.app/
+
 ## Project setup
 ```
 npm install
