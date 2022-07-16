@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>Добавление товара</h1>
     <form action="" class="form" >
       <ul class="input-list">
         <li v-for="item in paramInput" :key="item.id">
@@ -34,10 +35,9 @@
 
 export default {
   name: 'ShopForm',
-
+  /* eslint-disable */
   data() {
     return {
-      cards: [],
       paramInput: [
         {
           label: 'Наименование товара',
@@ -86,6 +86,7 @@ export default {
         info: '',
         link: '',
         cost: '',
+        id: Date.now()
       },
       toogle: false,
     };
@@ -94,15 +95,14 @@ export default {
     formFields: {
       deep: true,
       handler(newVal) {
+        console.log(newVal)
         this.checkInp(newVal);
       },
     },
   },
   methods: {
-    // eslint-disable-next-line
     addCard() {
       const status = {};
-      // eslint-disable-next-line
       for (let keyg in this.formFields) {
         if (this.formFields[keyg].length !== 0 || keyg === 'info') {
           status[keyg] = this.formFields[keyg];
@@ -114,24 +114,20 @@ export default {
           });
         }
       }
-      if (Object.keys(status).length === 4) {
-        this.cards.push(status);
-        // eslint-disable-next-line
+      if (Object.keys(status).length === 5) {
+        console.log(status);
+        this.$emit('transferCard', status);
         for (let field in this.formFields) {
-          this.formFields[field] = '';
+          field === 'id'? this.formFields[field] = Date.now():  this.formFields[field] = '';
         }
       }
     },
     checkInp(newVal) {
       const res = new Set();
-      // eslint-disable-next-line
       for (let inp in newVal) {
         if (newVal[inp].length !== 0 || inp === 'info') {
-          // eslint-disable-next-line
           res.add(inp);
-          // eslint-disable-next-line
-          res.size === 4 ? this.toogle = true : this.toogle = false;
-          // eslint-disable-next-line
+          res.size === 5 ? this.toogle = true : this.toogle = false;
           this.paramInput.forEach(el => el.id === inp ? el.error = false : '');
         }
       }
@@ -141,11 +137,18 @@ export default {
 </script>
 
 <style scoped lang="sass">
+h1
+  padding-bottom: 16px
+  font-size: 28px
+  font-weight: 600
+
 .form
   width: 332px
   height: 440px
-  background-color: rgba(0, 0, 0, 0.02)
+  background: #FFFEFB
   padding: 24px
+  box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04), 0px 6px 10px rgba(0, 0, 0, 0.02)
+  border-radius: 4px
 
 .label
   display: flex
@@ -163,10 +166,18 @@ export default {
   border: none
   outline: none
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button
+  -webkit-appearance: none
+
+input[type='number']
+  -moz-appearance: textfield
+
 .input::placeholder
   color: #B4B4B4
   font-size: 12px
   font-weight: 400
+  position: absolute
 
 .btn-add
   width: max-content
