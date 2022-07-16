@@ -29,9 +29,6 @@ export default {
       type: Array,
     },
   },
-  // beforeUpdate() {
-  //   this.cardsSort('По умолчанию')
-  // },
   data() {
     return {
       selectCheck: 'По умолчанию',
@@ -63,8 +60,7 @@ export default {
       }
     },
     deleteCard(event) {
-      this.cardsItem = this.cardsItem.filter((el) => el.id !== event)
-      this.updateLocal(this.cardsItem)
+      this.$emit('deleteCard', event)
     }
   },
 };
@@ -77,6 +73,11 @@ export default {
   justify-content: flex-start
   flex-direction: column
   align-items: flex-end
+
+@media (max-width: 768px)
+  .cards-box
+    align-items: flex-start
+    margin-top: 16px
 
 .btn-sort
   padding: 10px 0

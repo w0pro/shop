@@ -1,7 +1,7 @@
 <template>
   <div class="shop-table">
       <shop-form v-on:transferCard="transferCard($event)"/>
-      <shop-sort :cards="cards"/>
+      <shop-sort :cards="cards" v-on:deleteCard="deleteCard($event)"/>
   </div>
 
 </template>
@@ -35,7 +35,12 @@ export default {
       });
       this.updateLocal(this.cards)
     },
+    deleteCard(event) {
+      this.cards = this.cards.filter((el) => el.id !== event)
+      this.updateLocal(this.cards)
+    }
   },
+
 }
 </script>
 
@@ -45,4 +50,8 @@ export default {
   column-gap: 16px
   margin: 32px 32px 0
 
+@media (max-width: 768px)
+  .shop-table
+    flex-direction: column
+    align-items: center
 </style>

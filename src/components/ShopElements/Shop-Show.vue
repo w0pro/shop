@@ -1,6 +1,7 @@
 <template>
   <div class="cards-wrapper">
     <ul>
+      <transition-group name="list" tag="div">
       <li v-for="card in cards" :key="card.id">
         <button class="svg" @click="$emit('deleteCard', card.id)">
           <img src="/Group188.svg" alt="btn">
@@ -20,6 +21,7 @@
             </div>
           </div>
       </li>
+      </transition-group>
     </ul>
   </div>
 
@@ -37,17 +39,33 @@ export default {
 </script>
 
 <style scoped lang="sass">
+.list-enter-active, .list-leave-active
+  transition: all 0.3s
+
+.list-enter, .list-leave-to
+  opacity: 0
+  transform: translateY(30px)
+
+.list-leave-active
+  position: absolute
+
 .cards-wrapper
   width: 100%
   height: 100%
 
-ul
+ul>div
   display: flex
   flex-wrap: wrap
   width: 100%
   gap: 16px
 
+@media (max-width: 768px)
+  ul>div
+    justify-content: center
+
 li
+  transition: all 0.5s
+  display: inline-block
   position: relative
   width: 332px
   height: 423px
