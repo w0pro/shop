@@ -1,6 +1,7 @@
 <template>
   <div class="cards-wrapper">
     <ul>
+      <transition-group name="list" tag="div">
       <li v-for="card in cards" :key="card.id">
         <button class="svg" @click="$emit('deleteCard', card.id)">
           <img src="/Group188.svg" alt="btn">
@@ -15,11 +16,12 @@
                 <span>{{card.info}}</span>
               </div>
             </div>
-            <div>
+            <div class="item__cost">
               <span>{{new Intl.NumberFormat('ru-RU').format(card.cost)}} руб.</span>
             </div>
           </div>
       </li>
+      </transition-group>
     </ul>
   </div>
 
@@ -37,17 +39,33 @@ export default {
 </script>
 
 <style scoped lang="sass">
+.list-enter-active, .list-leave-active
+  transition: all 0.3s
+
+.list-enter, .list-leave-to
+  opacity: 0
+  transform: translateY(30px)
+
+.list-leave-active
+  position: absolute
+
 .cards-wrapper
   width: 100%
   height: 100%
 
-ul
+ul>div
   display: flex
   flex-wrap: wrap
   width: 100%
   gap: 16px
 
+@media (max-width: 768px)
+  ul>div
+    justify-content: center
+
 li
+  transition: all 0.5s
+  display: inline-block
   position: relative
   width: 332px
   height: 423px
@@ -68,7 +86,15 @@ li
   justify-content: space-between
   padding: 16px 16px 24px 16px
 
+.item__name h2
+  font-size: 20px
+  font-weight: 600
+  line-height: 25px
+
 .item__info
+  font-size: 16px
+  font-weight: 400
+  line-height: 20px
   margin: 16px 0 32px
   height: 89px
   overflow: scroll
@@ -80,6 +106,11 @@ li
   height: 100%
   object-fit: cover
   border-radius: 4px 4px 0 0
+
+.item__cost
+  font-size: 24px
+  font-weight: 600
+  line-height: 30px
 
 .svg
   position: absolute

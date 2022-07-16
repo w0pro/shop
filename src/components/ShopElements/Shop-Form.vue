@@ -95,7 +95,6 @@ export default {
     formFields: {
       deep: true,
       handler(newVal) {
-        console.log(newVal)
         this.checkInp(newVal);
       },
     },
@@ -115,7 +114,6 @@ export default {
         }
       }
       if (Object.keys(status).length === 5) {
-        console.log(status);
         this.$emit('transferCard', status);
         for (let field in this.formFields) {
           field === 'id'? this.formFields[field] = Date.now():  this.formFields[field] = '';
@@ -177,7 +175,6 @@ input[type='number']
   color: #B4B4B4
   font-size: 12px
   font-weight: 400
-  position: absolute
 
 .btn-add
   width: max-content
