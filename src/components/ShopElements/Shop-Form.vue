@@ -164,7 +164,7 @@ h1
 .input-list li
   list-style: none
 
-.input
+.input, textarea
   border-radius: 5px
   filter: drop-shadow(3px 2px 3px rgba(0, 0, 0, 0.1))
   padding: 10px 16px
